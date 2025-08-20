@@ -24,6 +24,7 @@ class ProductsTable
                     ->sortable(),
                 TextColumn::make('status'),
                 TextColumn::make('category.name'),
+                TextColumn::make('tags.name'),
             ])
             ->defaultSort('name', 'desc')
             ->filters([

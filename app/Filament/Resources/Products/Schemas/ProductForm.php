@@ -25,6 +25,9 @@ class ProductForm
                 Select::make('status')
                     ->options(ProductStatusEnum::class)
                     ->required(),
+                Select::make('tags')
+                    ->relationship('tags', 'name')
+                    ->multiple(),
                 ModalTableSelect::make('category_id')
                     ->relationship('category', 'name')
                     ->tableConfiguration(CategoriesTable::class),
