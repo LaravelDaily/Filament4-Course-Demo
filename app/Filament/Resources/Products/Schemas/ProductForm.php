@@ -7,6 +7,12 @@ use App\Filament\Tables\CategoriesTable;
 use Filament\Forms\Components\ModalTableSelect;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Wizard;
+use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
 
 class ProductForm
@@ -14,23 +20,33 @@ class ProductForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
-                TextInput::make('name')
-                    ->required()
-                    ->unique(),
-                TextInput::make('price')
-                    ->required()
-                    ->prefix('€')
-                    ->rule('numeric'),
-                Select::make('status')
-                    ->options(ProductStatusEnum::class)
-                    ->required(),
-                Select::make('tags')
-                    ->relationship('tags', 'name')
-                    ->multiple(),
-                ModalTableSelect::make('category_id')
-                    ->relationship('category', 'name')
-                    ->tableConfiguration(CategoriesTable::class),
+                Wizard::make()->steps([
+                    Step::make('Main data')
+                        ->schema([
+                            TextInput::make('name')
+                                ->required()
+                                ->columnSpanFull()
+                                ->unique(),
+                            TextInput::make('price')
+                                ->required()
+                                ->prefix('€')
+                                ->rule('numeric'),
+                        ]),
+                    Step::make('Additional data')
+                        ->schema([
+                            Select::make('status')
+                                ->options(ProductStatusEnum::class)
+                                ->required(),
+                            Select::make('tags')
+                                ->relationship('tags', 'name')
+                                ->multiple(),
+                            ModalTableSelect::make('category_id')
+                                ->relationship('category', 'name')
+                                ->tableConfiguration(CategoriesTable::class),
+                        ]),
+                ])
             ]);
     }
 }
