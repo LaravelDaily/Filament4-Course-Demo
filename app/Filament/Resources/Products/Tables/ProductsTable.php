@@ -37,7 +37,7 @@ class ProductsTable
                 SelectColumn::make('status')
                     ->searchableOptions()
                     ->options(ProductStatusEnum::class),
-                CheckboxColumn::make('is_active'),
+                ToggleColumn::make('is_active')->onColor('success')->offColor('danger'),
                 TextColumn::make('category.name')
                     ->label('Category name'),
                     // ->url(fn (Product $record): string => CategoryResource::getUrl('edit', ['record' => $record->category])),

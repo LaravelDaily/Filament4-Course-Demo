@@ -23,9 +23,10 @@ class ProductForm
             ->columns(1)
             ->components([
                 Wizard::make()->steps([
-                    Step::make('Main data')
+                    Step::make(__('Main data'))
                         ->schema([
                             TextInput::make('name')
+                                ->label(__('Product Name'))
                                 ->required()
                                 ->columnSpanFull()
                                 ->unique(),
@@ -34,7 +35,7 @@ class ProductForm
                                 ->prefix('€')
                                 ->rule('numeric'),
                         ]),
-                    Step::make('Additional data')
+                    Step::make(__('Additional data'))
                         ->schema([
                             Select::make('status')
                                 ->options(ProductStatusEnum::class)

@@ -29,8 +29,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->registration()
+            // ->font('Comic Neue')
+            // ->topNavigation()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
                 'gray' => Color::Gray,
                 'danger' => Color::Red,
             ])
@@ -57,6 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->resourceCreatePageRedirect('index')
             ->resourceEditPageRedirect('index')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->authMiddleware([
                 Authenticate::class,
             ]);
